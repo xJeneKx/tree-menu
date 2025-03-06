@@ -5,8 +5,3 @@ export interface MenuItem {
   level: number;
   children: MenuItem[];
 }
-
-export interface MenuData {
-  menuItems: MenuItem[];
-  isSearching: boolean;
-}

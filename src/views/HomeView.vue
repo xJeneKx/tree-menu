@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { computed, type Ref } from 'vue';
+import { computed } from 'vue';
 
-import type { MenuItem, MenuData } from '@/types/menu';
+import type { MenuItem } from '@/types/menu';
 import VMenuTree from '@/components/VMenuTree.vue';
 import VLoader from '@/components/icons/VLoader.vue';
 import { useMenuSearch } from '@/composables/useMenuSearch';
+import { useMenuState } from '@/composables/useMenuState.ts';
 
 const props = defineProps<{
   menu: MenuItem[];
 }>();
 
+const { openedKeys, activeKey } = useMenuState(props.menu);
 const { searchInput, filteredMenuItems, isPendingSearch } = useMenuSearch(props.menu);
 
-const menuData: Ref<MenuData> = computed(() => ({
-  isSearching: searchInput.value !== '',
-  menuItems: searchInput.value !== '' ? filteredMenuItems.value : props.menu,
-}));
+const isSearching = computed(() => searchInput.value !== '');
+const menuItems = computed(() => {
+  return searchInput.value !== '' ? filteredMenuItems.value : props.menu;
+});
 </script>
 
 <template>
@@ -26,7 +28,7 @@ const menuData: Ref<MenuData> = computed(() => ({
       </div>
 
       <div :class="$style.menuContainer">
-        <template v-if="menuData.isSearching">
+        <template v-if="isSearching">
           <div v-if="isPendingSearch" :class="$style.searchStatus">
             <VLoader :width="42" />
           </div>
@@ -37,8 +39,10 @@ const menuData: Ref<MenuData> = computed(() => ({
 
         <VMenuTree
           v-if="!isPendingSearch"
-          :menu-items="menuData.menuItems"
-          :is-searching="menuData.isSearching"
+          :menu-items="menuItems"
+          :is-searching="isSearching"
+          :active-key="activeKey"
+          v-model:openedKeys="openedKeys"
         />
       </div>
     </aside>
@@ -116,7 +120,6 @@ const menuData: Ref<MenuData> = computed(() => ({
 .title {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 24px;
 }
 
 .content {

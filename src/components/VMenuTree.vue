@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { ref, type Ref } from 'vue';
+import { defineModel } from 'vue';
 import { RouterLink } from 'vue-router';
 import type { MenuItem } from '@/types/menu.ts';
-import VOpenTree from '@/components/VOpenTree.vue';
+import VToggleTree from '@/components/VToggleTree.vue';
 
-defineProps<{ menuItems: MenuItem[]; isSearching: boolean }>();
+defineProps<{
+  menuItems: MenuItem[];
+  isSearching: boolean;
+  activeKey: string | null;
+}>();
 
-const openedKeys: Ref<Record<string, boolean>> = ref({});
+const openedKeys = defineModel<Record<string, boolean>>('openedKeys', {
+  default: {},
+});
 
 function toggleOpen(key: string) {
   openedKeys.value[key] = !openedKeys.value[key];
@@ -16,19 +22,28 @@ function toggleOpen(key: string) {
 <template>
   <div v-for="item in menuItems" :key="item.key">
     <div :class="{ [$style.menuItem]: true, [$style[`lvl${item.level}`]]: item.level }">
-      <VOpenTree
+      <VToggleTree
         :class="$style.menuIcon"
         :enabled="item.children.length > 0"
-        :isOpen="isSearching || openedKeys[item.key]"
+        :isOpen="isSearching || !!openedKeys[item.key]"
         :width="14"
         @click="toggleOpen(item.key)"
       />
-      <RouterLink :class="$style.link" :to="item.link" @click="toggleOpen(item.key)">
+      <RouterLink
+        :class="{ [$style.link]: true, [$style.link_active]: activeKey === item.key }"
+        :to="item.link"
+        @click="toggleOpen(item.key)"
+      >
         {{ item.name }}
       </RouterLink>
     </div>
-    <div v-if="item.children.length > 0 && (isSearching || openedKeys[item.key])">
-      <VMenuTree :menu-items="item.children" :is-searching="isSearching" />
+    <div v-if="item.children.length > 0 && (isSearching || !!openedKeys[item.key])">
+      <VMenuTree
+        :menu-items="item.children"
+        :is-searching="isSearching"
+        :active-key="activeKey"
+        v-model:openedKeys="openedKeys"
+      />
     </div>
   </div>
 </template>
