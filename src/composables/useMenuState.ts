@@ -14,8 +14,8 @@ export const useMenuState = (menuItems: MenuItem[]) => {
   watch(
     () => route.params.link,
     (link) => {
-      if (link) {
-        const key = convertLinkToKey(link as string);
+      if (typeof link === 'string' && link !== '') {
+        const key = convertLinkToKey(link);
         activeKey.value = key;
         const keys = findKeysPath(menuItems, key);
         if (keys.length) {

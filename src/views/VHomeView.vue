@@ -2,13 +2,16 @@
 import { computed } from 'vue';
 
 import type { MenuItem } from '@/types/menu';
+import type { Contents } from '@/types/contents';
 import VMenuTree from '@/components/VMenuTree.vue';
 import VLoader from '@/components/icons/VLoader.vue';
+import VContent from '@/components/VContent.vue';
 import { useMenuSearch } from '@/composables/useMenuSearch';
 import { useMenuState } from '@/composables/useMenuState.ts';
 
 const props = defineProps<{
   menu: MenuItem[];
+  rawContents: Contents;
 }>();
 
 const { openedKeys, activeKey } = useMenuState(props.menu);
@@ -47,23 +50,7 @@ const menuItems = computed(() => {
       </div>
     </aside>
 
-    <article :class="$style.contentContainer">
-      <h1 :class="$style.title">Title</h1>
-      <div :class="$style.content">
-        <p v-for="i in 10" :key="i">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla sem, cursus quis
-          ante in, pretium gravida velit. Integer eget lacus vitae nisl suscipit iaculis vel id
-          nunc. Phasellus tincidunt dignissim est eget laoreet. Pellentesque non tristique magna, eu
-          aliquam diam. Etiam venenatis non justo id pretium. Vivamus ut mi eu urna viverra viverra
-          sit amet ac metus. Vivamus euismod ex mi, in iaculis ante semper eu. Proin in commodo
-          erat. Ut leo ipsum, viverra sed elit vitae, dictum eleifend lacus. Morbi vel faucibus leo.
-          Etiam et finibus urna, id dignissim est. Aliquam erat volutpat. Vivamus cursus massa vel
-          nunc egestas, vitae auctor urna luctus. Pellentesque nec erat sit amet lacus aliquam
-          aliquet et eget nisi. Nullam laoreet ultrices urna nec convallis. Nullam neque quam,
-          bibendum sed pellentesque at, mollis in lacus.
-        </p>
-      </div>
-    </article>
+    <VContent :active-key="activeKey" :raw-contents="rawContents" />
   </main>
 </template>
 
@@ -111,19 +98,5 @@ const menuItems = computed(() => {
 .searchStatus {
   padding: 8px 16px;
   text-align: center;
-}
-
-.contentContainer {
-  padding: var(--content-padding);
-}
-
-.title {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.content {
-  font-size: 14px;
-  line-height: 1.5;
 }
 </style>

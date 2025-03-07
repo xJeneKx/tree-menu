@@ -11,6 +11,9 @@ export const useMenu = () => {
   const status: Ref<IStatus> = ref('pending');
   const errorMessage: Ref<string> = ref('');
 
+  // just for title
+  const rawContents: Ref<Contents> = ref({ pages: {}, rootLevelKeys: [] });
+
   async function getDataForMenu() {
     status.value = 'pending';
 
@@ -18,13 +21,16 @@ export const useMenu = () => {
       const contents: Contents = await getContents();
       menu.value = convertContentsToMenu(contents);
       status.value = 'success';
+      rawContents.value = contents;
     } catch (error) {
       status.value = 'error';
-      errorMessage.value = (error as Error).message;
+      if (error instanceof Error) {
+        errorMessage.value = error.message;
+      }
     }
   }
 
-  onMounted(async () => {
+  onMounted(() => {
     getDataForMenu();
   });
 
@@ -32,5 +38,6 @@ export const useMenu = () => {
     menu,
     status,
     errorMessage,
+    rawContents,
   };
 };

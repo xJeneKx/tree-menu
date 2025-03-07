@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import HomeView from '@/views/HomeView.vue';
+import HomeView from '@/views/VHomeView.vue';
 import { useMenu } from '@/composables/useMenu';
 import VLoader from '@/components/icons/VLoader.vue';
 
-const { menu, status, errorMessage } = useMenu();
+const { menu, status, errorMessage, rawContents } = useMenu();
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const { menu, status, errorMessage } = useMenu();
     <div :class="$style.errorMessage">Error: {{ errorMessage }}</div>
   </div>
 
-  <HomeView v-else :menu="menu" />
+  <HomeView v-else :menu="menu" :raw-contents="rawContents" />
 </template>
 
 <style module>

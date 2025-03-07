@@ -25,7 +25,7 @@ export function convertContentsToMenu(data: Contents): MenuItem[] {
 
     processed.set(pageKey, menuItem);
 
-    if (page.childPageKeys && page.childPageKeys.length > 0) {
+    if (page.childPageKeys?.length) {
       menuItem.children = page.childPageKeys.map((childKey) => createMenuItem(childKey, processed));
     }
 
