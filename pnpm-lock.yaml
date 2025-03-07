@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/lodash.debounce':
-        specifier: ^4.0.9
-        version: 4.0.9
       lodash.debounce:
         specifier: ^4.0.8
         version: 4.0.8
@@ -30,6 +27,9 @@ importers:
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
+      '@types/lodash.debounce':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@types/node':
         specifier: ^22.13.4
         version: 22.13.9
