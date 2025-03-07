@@ -4,7 +4,6 @@ defineProps({
   enabled: {
     type: Boolean,
     default: false,
-    required: true,
   },
   isOpen: {
     type: Boolean,
@@ -22,8 +21,15 @@ defineProps({
     v-if="enabled"
     :width="width"
     :class="{ [$style.icon]: true, [$style.iconOpen]: isOpen }"
+    data-testid="toggle-icon"
+    :data-is-open="isOpen"
   />
-  <div v-else :class="$style.emptyBlock" :style="{ width: `${width}px` }"></div>
+  <div
+    v-else
+    :class="$style.emptyBlock"
+    :style="{ width: `${width}px` }"
+    data-testid="empty-block"
+  ></div>
 </template>
 
 <style module>

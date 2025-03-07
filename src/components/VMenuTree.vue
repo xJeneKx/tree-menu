@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineModel } from 'vue';
 import { RouterLink } from 'vue-router';
 import type { MenuItem } from '@/types/menu.ts';
 import VToggleTree from '@/components/VToggleTree.vue';
@@ -21,7 +20,10 @@ function toggleOpen(key: string) {
 
 <template>
   <div v-for="item in menuItems" :key="item.key">
-    <div :class="{ [$style.menuItem]: true, [$style[`lvl${item.level}`]]: item.level }">
+    <div
+      :class="{ [$style.menuItem]: true, [$style[`lvl${item.level}`]]: item.level }"
+      data-testid="menu-item"
+    >
       <VToggleTree
         :class="$style.menuIcon"
         :enabled="item.children.length > 0"
@@ -33,6 +35,8 @@ function toggleOpen(key: string) {
         :class="{ [$style.link]: true, [$style.link_active]: activeKey === item.key }"
         :to="item.link"
         @click="toggleOpen(item.key)"
+        data-testid="menu-link"
+        :data-active="activeKey === item.key"
       >
         {{ item.name }}
       </RouterLink>

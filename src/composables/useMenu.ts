@@ -19,13 +19,12 @@ export const useMenu = () => {
       menu.value = convertContentsToMenu(contents);
       status.value = 'success';
     } catch (error) {
-      console.log(error);
       status.value = 'error';
       errorMessage.value = (error as Error).message;
     }
   }
 
-  onMounted(() => {
+  onMounted(async () => {
     getDataForMenu();
   });
 
