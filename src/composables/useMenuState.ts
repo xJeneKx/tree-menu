@@ -11,25 +11,34 @@ export const useMenuState = (menuItems: MenuItem[]) => {
   const openedKeys = ref<Record<string, boolean>>({});
   const activeKey = ref<string | null>(null);
 
+  function handleValidLink(link: string): void {
+    const key = convertLinkToKey(link);
+    activeKey.value = key;
+
+    const keys = findKeysPath(menuItems, key);
+    if (keys.length) {
+      keys.forEach((pathKey: string) => {
+        openedKeys.value[pathKey] = true;
+      });
+    }
+  }
+
+  function redirectToFirstItem(): void {
+    const firstElement = menuItems[0];
+    if (firstElement) {
+      router.replace({ name: 'home', params: { link: firstElement.link } });
+    }
+  }
+
   watch(
     () => route.params.link,
     (link) => {
       if (typeof link === 'string' && link !== '') {
-        const key = convertLinkToKey(link);
-        activeKey.value = key;
-        const keys = findKeysPath(menuItems, key);
-        if (keys.length) {
-          keys.forEach((key: string) => {
-            openedKeys.value[key] = true;
-          });
-        }
+        handleValidLink(link);
         return;
       }
 
-      const firstElement = menuItems[0];
-      if (firstElement) {
-        router.replace({ name: 'home', params: { link: firstElement.link } });
-      }
+      redirectToFirstItem();
     },
     { immediate: true },
   );

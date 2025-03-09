@@ -14,24 +14,37 @@ export const useMenu = () => {
   // just for title
   const rawContents: Ref<Contents> = ref({ pages: {}, rootLevelKeys: [] });
 
-  async function getDataForMenu() {
-    status.value = 'pending';
+  async function fetchAndProcessContents(): Promise<Contents> {
+    const contents = await getContents();
+    rawContents.value = contents;
+    menu.value = convertContentsToMenu(contents);
+    return contents;
+  }
 
+  function handleError(error: unknown): void {
+    status.value = 'error';
+    if (error instanceof Error) {
+      errorMessage.value = error.message;
+    } else {
+      errorMessage.value = 'Unknown error';
+    }
+  }
+
+  async function initDataForMenu() {
     try {
-      const contents: Contents = await getContents();
-      menu.value = convertContentsToMenu(contents);
+      status.value = 'pending';
+      errorMessage.value = '';
+
+      await fetchAndProcessContents();
+
       status.value = 'success';
-      rawContents.value = contents;
     } catch (error) {
-      status.value = 'error';
-      if (error instanceof Error) {
-        errorMessage.value = error.message;
-      }
+      handleError(error);
     }
   }
 
   onMounted(() => {
-    getDataForMenu();
+    initDataForMenu();
   });
 
   return {

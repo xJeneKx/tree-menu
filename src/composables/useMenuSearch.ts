@@ -9,13 +9,15 @@ export function useMenuSearch(menuItems: MenuItem[], debounceMs = 300) {
   const filteredMenuItems: Ref<MenuItem[]> = ref([]);
   const isPendingSearch: Ref<boolean> = ref(false);
 
+  const debouncedSearch = debounce((query: string) => {
+    filteredMenuItems.value = filterMenuByName(menuItems, query);
+    isPendingSearch.value = false;
+  }, debounceMs);
+
   watch(searchInput, (value: string) => {
     isPendingSearch.value = value !== '';
 
-    debounce(() => {
-      filteredMenuItems.value = filterMenuByName(menuItems, value);
-      isPendingSearch.value = false;
-    }, debounceMs)();
+    debouncedSearch(value);
   });
 
   return {
