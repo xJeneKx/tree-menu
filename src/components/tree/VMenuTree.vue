@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 import VToggleTree from '@/components/tree/VToggleTree.vue';
 import type { MenuItem } from '@/types/menu.ts';
 
-defineProps<{
+const props = defineProps<{
   menuItems: MenuItem[];
   isSearching: boolean;
   activeKey: string | null;
@@ -17,6 +17,10 @@ const openedKeys = defineModel<Record<string, boolean>>('openedKeys', {
 function toggleOpen(key: string) {
   openedKeys.value[key] = !openedKeys.value[key];
 }
+
+const isItemOpen = (key: string) => {
+  return props.isSearching || !!openedKeys.value[key];
+};
 </script>
 
 <template>
@@ -28,7 +32,7 @@ function toggleOpen(key: string) {
       <VToggleTree
         :class="$style.menuIcon"
         :enabled="item.children.length > 0"
-        :isOpen="isSearching || !!openedKeys[item.key]"
+        :isOpen="isItemOpen(item.key)"
         :width="14"
         @click="toggleOpen(item.key)"
       />
@@ -42,7 +46,8 @@ function toggleOpen(key: string) {
         {{ item.name }}
       </RouterLink>
     </div>
-    <div v-if="item.children.length > 0 && (isSearching || !!openedKeys[item.key])">
+
+    <div v-if="item.children.length > 0 && isItemOpen(item.key)">
       <VMenuTree
         :menu-items="item.children"
         :is-searching="isSearching"
@@ -63,20 +68,20 @@ function toggleOpen(key: string) {
   cursor: pointer;
   flex-shrink: 0;
   padding: 2px 0;
-}
 
-.menuItem svg:hover {
-  color: var(--link-hover);
+  &:hover {
+    color: var(--link-hover);
+  }
 }
 
 .link {
   margin-left: 4px;
   text-decoration: none;
   color: var(--link);
-}
 
-.link:hover {
-  color: var(--link-hover);
+  &:hover {
+    color: var(--link-hover);
+  }
 }
 
 .link_active {
