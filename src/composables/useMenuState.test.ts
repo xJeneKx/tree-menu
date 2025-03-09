@@ -1,9 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { flushPromises } from '@vue/test-utils';
-import { withSetup } from '@/tests/testUtils.ts';
-import { useMenuState } from './useMenuState';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import { largeMenuItems } from '@/mocks/mockMenu.ts';
+import { withSetup } from '@/tests/testUtils.ts';
 import type { MenuItem } from '@/types/menu.ts';
+
+import { useMenuState } from './useMenuState';
 
 const mockRoute: { params: { link: string | null } } = {
   params: {

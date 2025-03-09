@@ -1,8 +1,9 @@
 import { ref, onMounted, type Ref } from 'vue';
+
 import { getContents } from '@/api/contents.ts';
-import { convertContentsToMenu } from '@/utils/contentsToMenu.ts';
 import type { Contents } from '@/types/contents.ts';
 import type { MenuItem } from '@/types/menu';
+import { convertContentsToMenu } from '@/utils/contentsToMenu.ts';
 
 type IStatus = 'pending' | 'success' | 'error';
 

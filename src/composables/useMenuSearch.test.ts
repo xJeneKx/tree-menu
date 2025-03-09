@@ -1,8 +1,11 @@
-import { nextTick } from 'vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { withSetup } from '@/tests/testUtils.ts';
-import { useMenuSearch } from './useMenuSearch';
+import { nextTick } from 'vue';
+
 import { smallMenuItems, largeMenuItems } from '@/mocks/mockMenu.ts';
+import { withSetup } from '@/tests/testUtils.ts';
+
+import { useMenuSearch } from './useMenuSearch';
+
 
 const mockDebouncedFn = vi.fn();
 vi.mock('lodash.debounce', () => ({

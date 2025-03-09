@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { filterMenuByName } from './filterMenu';
+
 import type { MenuItem } from '@/types/menu';
+
+import { filterMenuByName } from './filterMenu';
 
 describe('filterMenuByName', () => {
   const testMenuItems: MenuItem[] = [

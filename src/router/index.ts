@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
 import VHomeView from '@/views/VHomeView.vue';
 
 const router = createRouter({

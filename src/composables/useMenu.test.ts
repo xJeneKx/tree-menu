@@ -1,14 +1,15 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { flushPromises } from '@vue/test-utils';
-import { withSetup } from '@/tests/testUtils.ts';
-import { useMenu } from './useMenu';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+import { getContents } from '@/api/contents';
 import { contents } from '@/mocks/mockContents.ts';
+import { withSetup } from '@/tests/testUtils.ts';
+
+import { useMenu } from './useMenu';
 
 vi.mock('@/api/contents', () => ({
   getContents: vi.fn(),
 }));
-
-import { getContents } from '@/api/contents';
 
 describe('useMenu', () => {
   beforeEach(() => {

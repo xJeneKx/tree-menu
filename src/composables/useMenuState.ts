@@ -1,8 +1,9 @@
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+
+import type { MenuItem } from '@/types/menu.ts';
 import { convertLinkToKey } from '@/utils/convertLinkToKey.ts';
 import { findKeysPath } from '@/utils/findKeysPath.ts';
-import type { MenuItem } from '@/types/menu.ts';
 
 export const useMenuState = (menuItems: MenuItem[]) => {
   const route = useRoute();

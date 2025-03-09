@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { findKeysPath } from './findKeysPath';
-import type { MenuItem } from '@/types/menu';
 
 import { smallMenuItems, largeMenuItems } from '@/mocks/mockMenu.ts';
+import type { MenuItem } from '@/types/menu';
+
+import { findKeysPath } from './findKeysPath';
+
 
 describe('findKeysPath', () => {
   it('should find path to an item in the first level', () => {

@@ -1,5 +1,5 @@
-import { ref, watch, type Ref } from 'vue';
 import debounce from 'lodash.debounce';
+import { ref, watch, type Ref } from 'vue';
 
 import type { MenuItem } from '@/types/menu';
 import { filterMenuByName } from '@/utils/filterMenu';

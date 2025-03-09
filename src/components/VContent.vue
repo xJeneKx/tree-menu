@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+
 import type { Contents } from '@/types/contents.ts';
 
 interface Props {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import HomeView from '@/views/VHomeView.vue';
-import { useMenu } from '@/composables/useMenu';
 import VLoader from '@/components/icons/VLoader.vue';
+import { useMenu } from '@/composables/useMenu';
+import HomeView from '@/views/VHomeView.vue';
 
 const { menu, status, errorMessage, rawContents } = useMenu();
 </script>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import type { MenuItem } from '@/types/menu.ts';
+
 import VToggleTree from '@/components/tree/VToggleTree.vue';
+import type { MenuItem } from '@/types/menu.ts';
 
 defineProps<{
   menuItems: MenuItem[];
