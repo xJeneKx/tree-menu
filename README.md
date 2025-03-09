@@ -11,6 +11,7 @@ Tree menu example (vue 3)
 
 ```sh
 pnpm install
+cp .env.example .env
 ```
 
 ### Compile and Hot-Reload for Development
