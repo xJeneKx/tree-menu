@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import type { MenuItem } from '@/types/menu';
 import type { Contents } from '@/types/contents';
-import VMenuTree from '@/components/VMenuTree.vue';
+import VMenuTree from '@/components/tree/VMenuTree.vue';
 import VLoader from '@/components/icons/VLoader.vue';
 import VContent from '@/components/VContent.vue';
 import { useMenuSearch } from '@/composables/useMenuSearch';

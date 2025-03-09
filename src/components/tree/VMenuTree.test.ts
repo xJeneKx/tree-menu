@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 import router from '@/router';
-import VMenuTree from '@/components/VMenuTree.vue';
+import VMenuTree from '@/components/tree/VMenuTree.vue';
 
 import { largeMenuItems } from '@/mocks/mockMenu.ts';
 
