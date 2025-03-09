@@ -26,9 +26,10 @@ export const useMenu = () => {
     status.value = 'error';
     if (error instanceof Error) {
       errorMessage.value = error.message;
-    } else {
-      errorMessage.value = 'Unknown error';
+      return;
     }
+
+    errorMessage.value = 'Unknown error';
   }
 
   async function initDataForMenu() {

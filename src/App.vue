@@ -17,7 +17,7 @@ const { menu, status, errorMessage, rawContents } = useMenu();
   <HomeView v-else :menu="menu" :raw-contents="rawContents" />
 </template>
 
-<style module>
+<style lang="scss" module>
 .statusBlock {
   position: absolute;
   display: flex;
@@ -25,9 +25,9 @@ const { menu, status, errorMessage, rawContents } = useMenu();
   justify-content: center;
   height: 100%;
   width: 100%;
-}
 
-.errorMessage {
-  font-size: 24px;
+  .errorMessage {
+    font-size: 24px;
+  }
 }
 </style>
