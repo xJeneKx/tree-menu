@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
-import VToggleTree from '@/components/VToggleTree.vue';
+
+import VToggleTree from '@/components/tree/VToggleTree.vue';
 
 describe('VToggleTree.vue', () => {
   it('should render empty block when disabled', () => {

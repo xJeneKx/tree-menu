@@ -6,12 +6,11 @@ import { withSetup } from '@/tests/testUtils.ts';
 
 import { useMenuSearch } from './useMenuSearch';
 
-
 const mockDebouncedFn = vi.fn();
 vi.mock('lodash.debounce', () => ({
-  default: (fn: () => void) => {
-    return () => {
-      mockDebouncedFn.mockImplementation(() => fn());
+  default: (fn: (searchInput: string) => void) => {
+    return (searchInput: string) => {
+      mockDebouncedFn.mockImplementation(() => fn(searchInput));
       return mockDebouncedFn;
     };
   },

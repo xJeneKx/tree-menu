@@ -5,7 +5,6 @@ import type { MenuItem } from '@/types/menu';
 
 import { findKeysPath } from './findKeysPath';
 
-
 describe('findKeysPath', () => {
   it('should find path to an item in the first level', () => {
     const path = findKeysPath(smallMenuItems, 'key2');
